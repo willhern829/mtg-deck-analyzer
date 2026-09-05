@@ -1,0 +1,71 @@
+/** A real, legal 100-card Krenko goblins list used as the demo deck. */
+export const SAMPLE_DECK = `Commander
+1 Krenko, Mob Boss
+
+Deck
+1 Skirk Prospector
+1 Fanatical Firebrand
+1 Goblin Lackey
+1 Warren Instigator
+1 Goblin Welder
+1 Goblin Engineer
+1 Mogg War Marshal
+1 Goblin Piledriver
+1 Goblin Recruiter
+1 Goblin Matron
+1 Goblin Chieftain
+1 Goblin Warchief
+1 Goblin King
+1 Goblin Rabblemaster
+1 Legion Warboss
+1 Goblin Sharpshooter
+1 Pashalik Mons
+1 Goblin Trashmaster
+1 Beetleback Chief
+1 Siege-Gang Commander
+1 Muxus, Goblin Grandee
+1 Goblin Instigator
+1 Skirk Fire Marshal
+1 Goblin Ringleader
+1 Zealous Conscripts
+1 Purphoros, God of the Forge
+1 Goblin Bushwhacker
+1 Reckless Bushwhacker
+1 Goblin Cratermaker
+1 Dark-Dweller Oracle
+1 Sol Ring
+1 Arcane Signet
+1 Ruby Medallion
+1 Fire Diamond
+1 Mind Stone
+1 Thought Vessel
+1 Wayfarer's Bauble
+1 Skullclamp
+1 Lightning Greaves
+1 Swiftfoot Boots
+1 Herald's Horn
+1 Vanquisher's Banner
+1 Ashnod's Altar
+1 Thornbite Staff
+1 Impact Tremors
+1 Goblin Bombardment
+1 Shared Animosity
+1 Fervor
+1 Lightning Bolt
+1 Chaos Warp
+1 Abrade
+1 Vandalblast
+1 Blasphemous Act
+1 Goblin War Strike
+1 Massive Raid
+1 Krenko's Command
+1 Dragon Fodder
+1 Hordeling Outburst
+1 Empty the Warrens
+1 Goblin Grenade
+1 Faithless Looting
+1 Reforge the Soul
+1 Light Up the Stage
+1 Valakut Awakening // Valakut Stoneforge
+35 Mountain
+`;

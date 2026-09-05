@@ -1,0 +1,24 @@
+{
+  "name": "mtg-deck-analyzer",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Commander (EDH) deck analyzer: validation, mana analysis, opening-hand simulation, and EDHREC-driven upgrade suggestions.",
+  "workspaces": [
+    "shared",
+    "server",
+    "web"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,web -c blue,green \"npm run dev -w server\" \"npm run dev -w web\"",
+    "build": "npm run build -w shared && npm run build -w server && npm run build -w web",
+    "start": "npm run start -w server",
+    "test": "npm run test -w shared && npm run test -w server",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
