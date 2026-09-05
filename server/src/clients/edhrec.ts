@@ -34,7 +34,7 @@ interface EdhrecPage {
   [key: string]: unknown;
 }
 
-const pageCache = new TtlCache<EdhrecPage | null>(1000 * 60 * 60 * 12, 500);
+const pageCache = new TtlCache<EdhrecPage>(1000 * 60 * 60 * 12, 500);
 
 /** EDHREC slug: lowercase, accents stripped, punctuation dropped, spaces to hyphens. */
 export function edhrecSlug(commanderName: string): string {
@@ -54,16 +54,16 @@ export function partnerSlug(names: string[]): string {
 }
 
 async function fetchPage(path: string): Promise<EdhrecPage | null> {
-  return pageCache.getOrLoad(path, async () => {
-    try {
+  try {
+    return await pageCache.getOrLoad(path, async () => {
       return await fetchJson<EdhrecPage>(`${BASE}/${path}.json`, {
         minGapMs: MIN_GAP_MS,
         retries: 2,
       });
-    } catch {
-      return null;
-    }
-  });
+    });
+  } catch {
+    return null; // Only successful pages enter the 12-hour cache.
+  }
 }
 
 function toSynergyCards(views: EdhrecCardView[] | undefined): SynergyCard[] {

@@ -5,6 +5,7 @@
  */
 export class TtlCache<V> {
   private readonly store = new Map<string, { value: V; expires: number }>();
+  private readonly pending = new Map<string, Promise<V>>();
 
   constructor(
     private readonly ttlMs: number,
@@ -35,8 +36,17 @@ export class TtlCache<V> {
   async getOrLoad(key: string, load: () => Promise<V>): Promise<V> {
     const hit = this.get(key);
     if (hit !== undefined) return hit;
-    const value = await load();
-    this.set(key, value);
-    return value;
+    const existing = this.pending.get(key);
+    if (existing) return existing;
+    const request = Promise.resolve().then(load).then((value) => {
+      this.set(key, value);
+      return value;
+    });
+    this.pending.set(key, request);
+    try {
+      return await request;
+    } finally {
+      this.pending.delete(key);
+    }
   }
 }
