@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      # Actions are pinned to commit SHAs so a moved tag can't swap in new code.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # No npm cache on purpose: cached tarballs skip the network, which would
+      # let them bypass the Socket Firewall check below.
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+
+      # Socket Firewall, free tier (no Socket account or API key). `sfw` sits
+      # in front of the package manager and blocks packages Socket flags as
+      # malicious before they install.
+      - uses: SocketDev/action@ba6de6cc0565af1f42295590380973573297e31f # v1.3.2
+        with:
+          mode: firewall-free
+
+      - name: Install dependencies through Socket Firewall
+        run: sfw npm ci
+
+      # Builds shared first (server and web import its dist), then server and
+      # web. tsc runs in every step, so type errors fail the build.
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
